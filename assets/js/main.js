@@ -37,10 +37,48 @@ function scrollHeader(){
 window.addEventListener('scroll', scrollHeader)
 
 /*==================== SHOW SCROLL UP ====================*/ 
+function scrollUp(){ 
+	const scrollUp = document.getElementById('scroll-up');
+    // When the scroll is higher than 200 viewport height, add the show-scroll class to the a tag with the scroll-top class
+	if(this.scrollY >= 200) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
+}   						
+window.addEventListener('scroll', scrollUp)
 
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+const scrollActive = () =>{
+    const scrollDown = window.scrollY
+
+  sections.forEach(current =>{
+      const sectionHeight = current.offsetHeight,
+            sectionTop = current.offsetTop - 58,
+            sectionId = current.getAttribute('id'),
+            sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+
+      if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+          sectionsClass.classList.add('active-link')
+      }else{
+          sectionsClass.classList.remove('active-link')
+      }                                                    
+  })
+}
+window.addEventListener('scroll', scrollActive)
 
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+    distance: '60px',
+    duration: 2500,
+    delay: 400,
+    //  reset: true
+})
 
+sr.reveal('.home__header, .section__title', {delay:600})
+sr.reveal('.home__footer',{delay: 700})
+sr.reveal('.home__img',{delay: 900, origin:'top'})
+
+sr.reveal('sponsor__img, .products__card, .footer__logo, .footer__content, .footer__copy', {origin: 'top', interval: 100})
+sr.reveal('.specs__data, .discount__animate', {origin: 'left', interval:100})
+sr.reveal('.specs__img, .discount__img',{orign: 'right'})
+sr.reveal('.case__img',{origin: 'top'})
+sr.reveal('.case__data', {})
